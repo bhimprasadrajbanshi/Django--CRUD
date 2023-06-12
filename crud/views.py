@@ -29,14 +29,9 @@ def add(request):
     return render(request,'index.html')
 
 
-def delete(request, Employees_id):
-    Employees_id = int(Employees_id)
-    print("id Employees" + Employees_id)
-    print("id Employees" + Employees_id)
-    print("id Employees" + Employees_id)
-    try:
-        Employees_sel = Employees.objects.get(id = Employees_id)
-    except Employees.DoesNotExist:
-        return redirect('index.html')
-    Employees_sel.delete()
-    return render(request,'index.html')
+def delete(request, id):
+    emp = Employees.objects.filter(id = id).delete()
+    context ={
+        'emp':emp,
+    }
+    return redirect('index')
