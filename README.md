@@ -3,7 +3,41 @@ CRUD stands for Create, Read, Update & Delete. These are the four basic operatio
 
 <img src="https://drive.google.com/file/d/1wxyIs3ZM7VuGqbL2879u8yZHR8MGIc1k/view?usp=sharing" alt="photo">
 
-###Code
+### Code
+#### Model
+```python
+ class Employees(models.Model):
+    name = models.CharField(max_length=200)
+    email= models.EmailField(max_length=150)
+    address = models.CharField(max_length=200)
+    phone = models.IntegerField() 
+    
+    def __str__(self):
+        return self.name
+ ```
+
+#### ADD operation
+```python
+def add(request):
+    if request.method == "POST": 
+        name = request.POST.get('name')
+        email = request.POST.get('email')
+        address = request.POST.get('address')
+        phone = request.POST.get('phone')
+        
+        emp = Employees(
+            name = name,
+            email = email,
+            address = address,
+            phone = phone,
+        )
+        
+        emp.save()
+        return redirect('index')
+        
+    return render(request,'index.html')
+
+```
 
 #### DELETE operation
 ```python
